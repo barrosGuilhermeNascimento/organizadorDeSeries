@@ -42,12 +42,11 @@ namespace projeto_1
             }
 
             Console.WriteLine("Até Logo!");
-
         }
 
         public static void ListarSeries(){
+            bool existeExcluido = false;
             Console.WriteLine("Listar séries");
-
             var lista = repositorio.Lista();
 
             if (lista.Count == 0){
@@ -58,23 +57,30 @@ namespace projeto_1
             foreach ( var i in lista){
                 if (!i.retornaExcluido()){
                     Console.WriteLine("#ID {0}: - {1}", i.retornaId(), i.retornaTitulo());
+                }else{
+                    existeExcluido = true;
                 }
             }
+            // if (existeExcluido){
+            //     Console.WriteLine("Existem séries excluidas, deseja visualizar?(s/n)");
+            //     if (Console.ReadLine().ToLower() == "s") {
+            //         foreach(var i in lista){
+            //             Console.WriteLine("#ID {0}: - {1}", i.retornaId(), i.retornaTitulo());
+            //         }
+            //     }
+            // }
             return; 
         }
 
         public static void InserirSerie(){
-            Console.WriteLine("Inserir nova série");
-           
+            Console.WriteLine("Inserir uma nova série");           
             repositorio.Insere(infoSerie());
         }
 
         public static void AtualizarSerie(){
             Console.Write("Digite o id da série: ");
-            int idSerie = int.Parse(Console.ReadLine());
-            
+            int idSerie = int.Parse(Console.ReadLine());            
             repositorio.Atualiza(idSerie, infoSerie(idSerie));
-
         }
 
         public static void ExcluirSerie(){
@@ -89,7 +95,6 @@ namespace projeto_1
             }else {
                 Console.WriteLine("Ação Cancelada!");
             }
-
         }
 
         public static void VisualizarSerie(){
@@ -105,7 +110,6 @@ namespace projeto_1
         private static string ObterOpcaoUsuario(){
             Console.WriteLine();
             Console.WriteLine("Informe a opção desejada");
-
             Console.WriteLine("1- Listar séries");
             Console.WriteLine("2- Inserir nova série");
             Console.WriteLine("3- Atualizar série");
